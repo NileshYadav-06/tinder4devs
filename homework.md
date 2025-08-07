@@ -1,0 +1,11 @@
+- Create a repository
+- Initialize the repository 
+- noe moukes, package.json, package-lock.json 
+- Install express
+- Create a server
+- Listen to port 7777
+- Write request for /test, /hello
+- Install noemon an upate the script insie package.json
+- What are epenencies
+- What is the use of '-g' while npm install
+- ifference between caret & tile (^ vs ~) 
