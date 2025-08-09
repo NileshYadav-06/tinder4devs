@@ -18,4 +18,8 @@
 - Play with routes an route extensions ex. /hello, /, /hello/2, /xyz
 - Orer of the routes matters a lot
 - Install Postman app an make a workspace/collection > test API call
--Write logic to handle GET, POST, PATCH, Delte API calls and test them on Postman
+- Write logic to handle GET, POST, PATCH, Delte API calls and test them on Postman
+- Explore routing and use of ?, +, (), * in the routes
+- use of regex in routes /a/, /.*fly$/
+- Reading the query params in the routes 
+- Reading the dynamic routes  
