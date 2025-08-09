@@ -9,3 +9,13 @@
 - What are epenencies
 - What is the use of '-g' while npm install
 - ifference between caret & tile (^ vs ~) 
+
+-Initialize git
+- .gitignore
+- shoul we put package-lock.json on github or not?
+- Create a remote repo on github
+- push all coe to github remote origin  
+- Play with routes an route extensions ex. /hello, /, /hello/2, /xyz
+- Orer of the routes matters a lot
+- Install Postman app an make a workspace/collection > test API call
+-Write logic to handle GET, POST, PATCH, Delte API calls and test them on Postman

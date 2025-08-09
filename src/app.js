@@ -2,16 +2,28 @@ const express =require('express')
 
 const app = express();
 
-app.use("/hello",(req, res) => { // this callback function is called as req handler
-    res.send("Hello Mr. NILESH JI from the dashboard");
-})
 
-app.use("/test",(req, res) => { 
-        res.send("Hello from the server");
-})
 
-app.use("/",(req, res) => { 
-        res.send("Hello Mr. ANKIT UPA");
+ 
+// this will handle GET call to /user
+ app.get("/user", (req, res) => {
+        res.send({firstname: "Nilesh", lastname: "Yadav"})
+ })
+app.post("/user", (req, res) => {
+        console.log(" save data to database"); // we have to write the logic to save the data to DB
+        res.send("Data succesfully saved to Database")
+        
+})
+app.delete("/user", (req, res) => {
+        res.send("Deleted successfully")
+})
+app.use("/user", (req, res) => {
+        res.send("Haahahhahaa")
+ })
+
+//this will match all the HTTP method API calls to /test
+app.use("/test", (req, res) => { 
+        res.send("Hello from the server ");
 })
 
 
