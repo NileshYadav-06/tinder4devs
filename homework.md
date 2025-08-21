@@ -1,25 +1,35 @@
 - Create a repository
 - Initialize the repository 
-- noe moukes, package.json, package-lock.json 
+- node modules, package.json, package-lock.json 
 - Install express
 - Create a server
 - Listen to port 7777
 - Write request for /test, /hello
-- Install noemon an upate the script insie package.json
-- What are epenencies
+- Install nodemon an update the script inside package.json
+- What are depenencies
 - What is the use of '-g' while npm install
-- ifference between caret & tile (^ vs ~) 
+- Difference between caret & tile (^ vs ~) 
 
 -Initialize git
 - .gitignore
-- shoul we put package-lock.json on github or not?
+- should we put package-lock.json on github or not?
 - Create a remote repo on github
-- push all coe to github remote origin  
+- push all code to github remote origin  
 - Play with routes an route extensions ex. /hello, /, /hello/2, /xyz
-- Orer of the routes matters a lot
+- Order of the routes matters a lot
 - Install Postman app an make a workspace/collection > test API call
 - Write logic to handle GET, POST, PATCH, Delte API calls and test them on Postman
 - Explore routing and use of ?, +, (), * in the routes
-- use of regex in routes /a/, /.*fly$/
+- Use of regex in routes /a/, /.*fly$/
 - Reading the query params in the routes 
-- Reading the dynamic routes  
+- Reading the dynamic routes 
+
+- Multiple Route Handlers - play with code 
+- next()
+- next function and errors along with res.send
+- app.use("/route", rH1, [rH2, rH3], rH4, rh5);
+- What is middleware & request Handler why do we need middleware
+- How express JS basically handles the requests behind the scenes
+- Read about difference between app.use and app.all
+- Write a dummy auth middleware for admin 
+- write a dummy auth middleware  for all user routes,  except /user/login
