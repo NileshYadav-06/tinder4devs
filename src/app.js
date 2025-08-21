@@ -1,29 +1,26 @@
 const express = require("express");
-
+// const dbConnect = require("./config/database");
 const app = express();
-const { adminAuth, userAuth } = require("./middlewares/auth");
 
-// Handle Auth middleware for all GET POST ,... request
-app.use("/admin", adminAuth);
-// app.use("/user", userAuth);
+// dbConnect();
+ 
+app.get("/getUserData", (req, res) => {
+  try {
+    // logic of DB  call and get user Data
 
-// this will handle GET call to /user
-app.get("/user",userAuth, (req, res) => {
-  res.send("User Handler");
-  console.log("hello User");
-});
-app.get("/user/login", (req, res) => {
-  console.log("User login successfully");
-  res.send("User logined");
+    throw new Error("dncjdjcidsci");
+    res.send("User data sent");
+ } catch (err) {
+   res.status(500).send("Some Error occurs contact support team");
+  }
 });
 
-app.get("/admin/getAllData", (req, res) => {
-  res.send("All data sent");
-  console.log("hello Admin");
-});
-
-app.delete("/admin/deleteUser", (req, res) => {
-  res.send(" Deleted a User");
+app.use("/", (err, req, res, next) => {
+  if (err) {
+    //Log your error
+    console.log(err);
+    res.status(500).send("something went wrong");
+  }
 });
 
 app.listen(7777, () => {
