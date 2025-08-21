@@ -5,16 +5,21 @@ const { adminAuth, userAuth } = require("./middlewares/auth");
 
 // Handle Auth middleware for all GET POST ,... request
 app.use("/admin", adminAuth);
-app.use("/user", userAuth);
+// app.use("/user", userAuth);
 
 // this will handle GET call to /user
-app.get("/user", (req, res) => {
+app.get("/user",userAuth, (req, res) => {
   res.send("User Handler");
-  console.log("hello");
+  console.log("hello User");
 });
+app.get("/user/login", (req, res) => {
+  console.log("User login successfully");
+  res.send("User logined");
+});
+
 app.get("/admin/getAllData", (req, res) => {
   res.send("All data sent");
-  console.log("hello");
+  console.log("hello Admin");
 });
 
 app.delete("/admin/deleteUser", (req, res) => {

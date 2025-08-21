@@ -1,10 +1,10 @@
 const adminAuth = (req, res, next) => {
   // Logic of checking if the req is authourizd
-  console.log("Admin AUth is getting checked!!");
+  console.log("Admin Auth is getting checked!!");
   const token = "xyz";
   const isAdminAuthorized = token === "xyz";
   if (!isAdminAuthorized) {
-    res.status(401).send("unauthorized request");
+    res.status(401).send("unauthorized admin request");
   } else {
     next();
   }
@@ -12,11 +12,11 @@ const adminAuth = (req, res, next) => {
 
 const userAuth = (req, res, next) => {
   // Logic of checking if the req is authourizd
-  console.log("Admin AUth is getting checked!!");
+  console.log("User Auth is getting checked!!");
   const token = "nilesh";
-  const isAdminAuthorized = token === "nilesh";
-  if (!isAdminAuthorized) {
-    res.status(401).send("unauthorized request");
+  const isUSerAuthorized = token === "nilesh";
+  if (!isUSerAuthorized) {
+    res.status(401).send("unauthorized user request");
   } else {
     next();
   }
