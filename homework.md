@@ -39,3 +39,6 @@
 - Install mongoose library
 - Connect your application to Database "Connection-url"/tinder4Devs
 - Call the dbConnect() function and connect the Database before starting the Application (or Server) on 7777
+- Create a userSchema and user model 
+- Create POST/signup API to add data to database
+- Write logic to push some document usong API calls from postman to save on DB
