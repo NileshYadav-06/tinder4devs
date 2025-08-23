@@ -1,12 +1,10 @@
-const mongoose = require("mongoose")
-const DB_URL = "mongodb://localhost:27017/tinderForDevs"
-const dbConnect = () => {
-    mongoose.connect(DB_URL).then(() => {
-        console.log("Db connected successfully")
-    }).catch((err) => {
-        console.log(err);
-        process.exit(1);
-    })
-}
+const mongoose = require("mongoose");
+const DB_URL =
+  "mongodb+srv://nilesh4149yaduvanshi:nilesh428yaduvanshi@namastenodejs.ydm2qtc.mongodb.net/tinder4Devs";
+const dbConnect = async () => {
+  await mongoose.connect(DB_URL);
+};
 
-module.exports = dbConnect;
+module.exports = {
+  dbConnect
+};

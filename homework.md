@@ -1,4 +1,4 @@
-- Create a repository
+-Create a repository
 - Initialize the repository 
 - node modules, package.json, package-lock.json 
 - Install express
@@ -24,7 +24,7 @@
 - Reading the query params in the routes 
 - Reading the dynamic routes 
 
-- Multiple Route Handlers - play with code 
+-Multiple Route Handlers - play with code 
 - next()
 - next function and errors along with res.send
 - app.use("/route", rH1, [rH2, rH3], rH4, rh5);
@@ -34,3 +34,8 @@
 - Write a dummy auth middleware for admin 
 - write a dummy auth middleware  for all user routes,  except /user/login
 - Error Handling using app.use("/", (err, req, res, next)=>{});
+
+-Create a free cluster on MongoDB official website (Mongo atlas)
+- Install mongoose library
+- Connect your application to Database "Connection-url"/tinder4Devs
+- Call the dbConnect() function and connect the Database before starting the Application (or Server) on 7777
