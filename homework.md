@@ -42,3 +42,7 @@
 - Create a userSchema and user model 
 - Create POST/signup API to add data to database
 - Write logic to push some document usong API calls from postman to save on DB
+- Error handling using try , catch when save the documents to DB
+-JS object vs JSON (difference)
+- Add the express.json middleware to your app
+- Make your signup  API dynamic to recieve data from the end use ("postman or browser")

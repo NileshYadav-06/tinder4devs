@@ -4,24 +4,17 @@ const { dbConnect } = require("./config/database");
 const app = express();
 const User = require("./models/user");
 
-app.post("/signup", async (req, res) => { 
-   const user = new User({
-    firstName: "Ankit",
-    lastName: "Upadhyay",
-    emailId: "ankitk@.com",
-     password: "ankits@123",
-     gender: "male",
-     age: 22,
-  });
+app.use(express.json());
+app.post("/signup", async (req, res) => {
+  console.log("req.body =>", req.body);
+  const user = new User(req.body);
   try {
     await user.save();
-      res.send("User added successfully ");
+    res.send("User added successfully ");
   } catch (err) {
-    console.log("cannot add ", err)
+    console.log("cannot add ", err);
     res.status(400).send("User cannot be added");
- } 
-
-
+  }
 });
 
 dbConnect()
