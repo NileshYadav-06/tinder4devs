@@ -16,7 +16,7 @@ app.post("/signup", async (req, res) => {
     res.send(`User added successfully And the user is => ${user}`);
   } catch (err) {
     console.log("cannot add ", err);
-    res.status(400).send("User cannot be added");
+    res.status(400).send("User cannot be added " + err.message);
   }
 });
 //Get user by email
@@ -42,7 +42,7 @@ app.get("/userById", async (req, res) => {
   try {
     const user = await User.findById(_id);
     if (!user) {
-      res.status(400).send("User not found");
+      res.status(404).send("User not found");
     } else {
       res.send(user);
     }
@@ -50,7 +50,7 @@ app.get("/userById", async (req, res) => {
     res.status(400).send("Something went wrong contact to admin");
   }
 });
-//Feed API- GET/feed - get all the user from the database
+// Feed API- GET/feed - get all the user from the database
 app.get("/feed", async (req, res) => {
   try {
     const users = await User.find({});
@@ -76,35 +76,62 @@ app.delete("/user", async (req, res) => {
   }
 });
 // patch - findByIdAndUpdate method for Update the few fields of the user
-// app.patch("/user", async (req, res) => {
-//   const userId = req.body.userId;
-//   const data = req.body;
-//   try {
-//     const user = await User.findByIdAndUpdate({ _id: userId }, data, {
-//       returnDocument: "after",
-//     });
-//     console.log(user);
-//     res.send(`User updated successfully:${user}`);
-//   } catch (err) {
-//     res.status(400).send("Something went wrong patch");
-//   }
-// });
-// Patch - findOneAndUpdate method  for tupdating the few fields of the user object(model)
-app.patch("/user", async (req, res) => {
-  const {userEmail} = req.body ;
+app.patch("/user/:userId", async (req, res) => {
+  const userId = req.params?.userId;
   const data = req.body;
   try {
-    const user = await User.findOneAndUpdate({ emailId: userEmail }, data, {
+    const Allowed_Updates = [
+      "photoUrl",
+      "password",
+      "skills",
+      "age",
+      "about",
+      "gender"
+    
+    ];
+    console.log(Object.keys(data));
+    
+    const isUpdateAllowed = Object.keys(data).every((k) =>
+      Allowed_Updates.includes(k)
+    );
+    
+    if (!isUpdateAllowed) {
+      throw new Error("Update Failed: Some fields are not allowed to update");
+    }
+    if (data?.skills.length > 10) {
+      throw new Error("Skills should not be more than 10");
+    }
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
       returnDocument: "after",
+      runValidators: true,
     });
-    if (!user) return res.status(404).send("User not found");
-
-    console.log("User updated in DB by findOneAndUpdate()", user);
-    res.send(`User Updated Successfully: ${user}`);
+    if (!user) {
+      res.status(404).send("User not Found");
+    }
+    console.log(user);
+    res.send(`User updated successfully:${user}`);
   } catch (err) {
-    res.status(400).send("Something went wrong ");
+    console.log(err);
+    res.status(400).send("Update Failed: " + err.message);
   }
 });
+// Patch - findOneAndUpdate method  for tupdating the few fields of the user object(model)
+// app.patch("/user", async (req, res) => {
+//   const { userEmail } = req.body;
+//   const data = req.body;
+//   try {
+//     const user = await User.findOneAndUpdate({ emailId: userEmail }, data, {
+//       returnDocument: "after",
+//       runValidators: true,
+//     });
+//     if (!user) return res.status(404).send("User not found");
+
+//     console.log("User updated in DB by findOneAndUpdate()", user);
+//     res.send(`User Updated Successfully: ${user}`);
+//   } catch (err) {
+//     res.status(400).send("UPDATE FAILED: " + err.message);
+//   }
+// });
 // Put method , update the entire resource of the object
 app.put("/user", async (req, res) => {
   const { userId } = req.body;

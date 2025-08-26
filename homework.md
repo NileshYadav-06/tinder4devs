@@ -42,7 +42,8 @@
 - Create a userSchema and user model 
 - Create POST/signup API to add data to database
 - Write logic to push some document usong API calls from postman to save on DB
-- Error handling using try , catch when save the documents to DB
+- Error handling using try , catch when save the documents to DB.
+
 -JS object vs JSON (difference)
 - Add the express.json middleware to your app
 - Make your signup  API dynamic to recieve data from the end use ("postman or browser")
@@ -58,3 +59,12 @@
 - API - to Update the entire user object using PUT ("replaceOne() ")
 - Explore the mongoose documentation Specially for Model.
 - Create API - Update the user with emailId
+
+-Explore schemaType options from the documentation
+- Add require, unique, lowercase, min, minLength, max, maxLength, trim
+- Add default
+- Create a custom validate function for gender
+- Add timestamps to the User schema.
+- Improve the DB schema - PUT all the appropriate validation on each in schema
+- Add API level validation on the patch request and signup post api 
+- Data sanitizing - Add API validation for each field
