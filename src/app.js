@@ -86,21 +86,23 @@ app.patch("/user/:userId", async (req, res) => {
       "skills",
       "age",
       "about",
-      "gender"
-    
+      "gender",
     ];
-    console.log(Object.keys(data));
-    
+    // console.log(Object.keys(data));
+
     const isUpdateAllowed = Object.keys(data).every((k) =>
       Allowed_Updates.includes(k)
     );
-    
+
     if (!isUpdateAllowed) {
       throw new Error("Update Failed: Some fields are not allowed to update");
     }
     if (data?.skills.length > 10) {
       throw new Error("Skills should not be more than 10");
     }
+    // if (data?.password) {
+    //   throw new Error("Password must be number only");
+    // }
     const user = await User.findByIdAndUpdate({ _id: userId }, data, {
       returnDocument: "after",
       runValidators: true,
@@ -111,7 +113,7 @@ app.patch("/user/:userId", async (req, res) => {
     console.log(user);
     res.send(`User updated successfully:${user}`);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     res.status(400).send("Update Failed: " + err.message);
   }
 });

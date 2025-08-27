@@ -68,3 +68,6 @@
 - Improve the DB schema - PUT all the appropriate validation on each in schema
 - Add API level validation on the patch request and signup post api 
 - Data sanitizing - Add API validation for each field
+- Install validator
+- Explore validator library function and Use validator func for password, email and on appropriate field
+- NEVER TRUST req.body ("This can be malicious data ")
