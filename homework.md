@@ -71,3 +71,11 @@
 - Install validator
 - Explore validator library function and Use validator func for password, email and on appropriate field
 - NEVER TRUST req.body ("This can be malicious data ")
+
+-Validate data in signup API
+- Make utils folder and inside that make helper function
+- Install bcrypt package
+- Create PasswordHash using bcrypt.hash and the user password in encrypted passwoord in DB
+- Create LOGIN API 
+- Compare the password using await bcrypt.compare(pass, hashPass)
+- Throw Error if email or password are invalid
