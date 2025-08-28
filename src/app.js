@@ -6,8 +6,11 @@ const User = require("./models/user");
 const { SchemaTypeOptions } = require("mongoose");
 const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
-app.use(express.json());
+app.use(express.json()); // this is inbuilt middleware user for reading the json data (convert it into js objectnp)
+app.use(cookieParser()); // this middleware is use for readind the cookies
 // POST SIGNUP
 app.post("/signup", async (req, res) => {
   try {
@@ -47,22 +50,60 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
-    const existingUser = await User.findOne({ emailId });
-    if (!existingUser) {
+    const user = await User.findOne({ emailId });
+    if (!user) {
       throw new Error("Invalid Credentials ");
     }
-    const isValidPassword = await bcrypt.compare(password, existingUser.password)
-    if (!isValidPassword) {
-      throw new Error("Invalid Credentials ");
-    } else {
-      res.send("LOGIN SUCCESSFULL");
-    }
+    const isValidPassword = await bcrypt.compare(
+      password,
+      user.password
+    );
+    if (isValidPassword) {
+      // Create a JWT Token
+      const manforce = "manforce"
+      const token = await jwt.sign({userId: user._id, condom: manforce }, "tinder4DEVS@$790"); // i can use any name in payload inplace of userId
+      console.log(token);
 
+      // Add Token to cookies and send response back to the user
+      res.cookie("token", token);
+      res.send("LOGIN SUCCESSFULL");
+      
+    } else {
+     throw new Error("Invalid Credentials ");
+    }
   } catch (err) {
     res.status(400).send("ERROR: " + err.message);
   }
 });
+// GET Profile
+app.get("/profile", async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    console.log(cookies);
 
+    const { token } = cookies;
+    if (!token) {
+      throw new Error("Invalid Token")
+    }
+    
+    // Validate my token
+
+    const decodedMessage = await jwt.verify(token, "tinder4DEVS@$790");
+    console.log("decodeMessage: ",decodedMessage);
+
+    const {userId} = decodedMessage;
+    console.log(" userId: ", userId)
+    
+    const user = await User.findById(userId);
+    
+
+    res.send("LOGGED USER:  " + user);
+  } catch (err){
+    console.log(err);
+    res.status(400).send("ERROR: "+ err.message);
+  }
+  
+});
 //Get user by email
 app.get("/user", async (req, res) => {
   const userEmail = req.body.emailId;

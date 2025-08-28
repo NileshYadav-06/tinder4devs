@@ -1,6 +1,6 @@
 const validator = require("validator");
 
-const validateSignUpData = async (req) => {
+const validateSignUpData = (req) => {
   const { firstName, lastName, password, emailId } = req.body;
   if (!firstName || !lastName) {
     throw new Error("You have to enter fisrtName and lastName");
