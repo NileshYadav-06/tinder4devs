@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -70,7 +72,26 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+// method to generate token
+userSchema.methods.getJWT = async function () {  // here arrow function will not work if we use that
+  const user = this;
+  const manforce = "manforce";
+  const token = await jwt.sign(
+    { userId: user._id, condom: manforce },
+    "tinder4DEVS@$790",
+    { expiresIn: "7d" }
+  ); // i can use any name in payload inplace of userId i can use _id or which i want
+
+  return token;
+};
+// method to validate
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+  const user = this;
+  const passwordHash = user.password;
+  const isValidPassword = await bcrypt.compare(passwordInputByUser, passwordHash);
+
+  return isValidPassword;
+};
 
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;
