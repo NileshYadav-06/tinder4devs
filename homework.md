@@ -94,3 +94,25 @@
 -Explore tinder APIs
 - Create a list of all API you can think of in Tinder4Devs
 - group multipe routes under respective routers
+- Read documentation for express.Router
+- Create routes folder for managing auth, profile, request routers
+- Import these routers in app.js
+- Create POST /logout API in authRouter
+- Create get /profile/view API in profileRouter
+- Create patch /profile/edit  API in profileRouter
+- Create patch /profile/password  API in profileRouter => forgot password API
+- Make sure that you validate all data in all PATCH and POST apis
+
+-Create connection Request Schema
+- Send connection request API (intrested/ignored)
+- Proper validation of data
+- Think about all corner cases and handle them
+- Read about more $or qurey and $and query in mongoose and all other logical operator used in DB quering
+- Schema.pre("save") function
+- Read more about indexes in MongoDb
+- Why do we need index in DB?
+- What is the advantage and disadvantage of creating?
+- Read article about compound indexes 
+- ALWAYS THINK ABOUT CORNER CASES
+
+-Write code with proper validation for POST /request/review/:status/:requestId

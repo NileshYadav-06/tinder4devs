@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       lowercase: true,
       trim: true,
-      unique: true,
+      unique: true,  // this automatically creates index: true, if we dont use unique: true, then we have to do manually index: true
       validate(value) {
         if (!validator.isEmail(value)) {
           throw new Error("Invalid email address: " + value);
@@ -40,15 +40,19 @@ const userSchema = new mongoose.Schema(
     age: {
       type: Number,
       min: 18,
-      max: 80,
+      max: 90,
     },
     gender: {
       type: String,
-      validate(value) {
-        if (!["male", "female", "others"].includes(value)) {
-          throw new Error("Gender should be male, female, or others");
-        }
+      enum: {
+        values: ["male", "female", "others"],
+        message: `{VALUE} is not a valid gender type`
       },
+      // validate(value) {
+      //   if (!["male", "female", "others"].includes(value)) {
+      //     throw new Error("Gender should be male, female, or others");
+      //   }
+      // },
     },
     photoUrl: {
       type: String,
@@ -67,11 +71,20 @@ const userSchema = new mongoose.Schema(
     skills: {
       type: [String],
     },
+    blackList: [
+      {
+      type:  mongoose.Schema.Types.ObjectId,
+      ref: "User"
+      }
+    ,]
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.index({ firstName: 1, lastName: 1 })
+
 // method to generate token
 userSchema.methods.getJWT = async function () {  // here arrow function will not work if we use that
   const user = this;
@@ -88,10 +101,11 @@ userSchema.methods.getJWT = async function () {  // here arrow function will not
 userSchema.methods.validatePassword = async function (passwordInputByUser) {
   const user = this;
   const passwordHash = user.password;
-  const isValidPassword = await bcrypt.compare(passwordInputByUser, passwordHash);
-
+  // console.log("user.password: =>  " , user.password )  !!!  displays passwordHash
+  // console.log("this.password: =>  " , this.password )  !!!  displays passwordHash
+  const isValidPassword = await bcrypt.compare(passwordInputByUser, passwordHash); 
+  // bcrypt.compare() returns boolean value true or false
   return isValidPassword;
-};
-
+}; 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
