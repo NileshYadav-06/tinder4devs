@@ -4,12 +4,14 @@ const User = require("./user")
 const connectionRequestSchema = new mongoose.Schema(
   {
     fromUserId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, // the user who sent the request
       required: true,
+      ref: "User" // Reference to User collection
     },
     toUserId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, // the user who receives the request
       required: true,
+       ref: "User" // Reference to the User collection
     },
     status: {
       type: String,
@@ -22,8 +24,7 @@ const connectionRequestSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    }
-  
+  }
 );
 
 connectionRequestSchema.index({toUserId:1,fromUserId:1}) // This is called compound index

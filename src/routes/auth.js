@@ -17,7 +17,7 @@ authRouter.post("/signup", async (req, res) => {
 
     // 1. Check if email exists
     const existingUser = await User.findOne({ emailId });
-    console.log("existingUser: ", existingUser);
+    // console.log("existingUser: ", existingUser);
     if (existingUser) {
       throw new Error("Email already registered");
     }
@@ -75,7 +75,7 @@ authRouter.post("/logout", async (req, res) => {
   res.cookie("token", null, {
    maxAge:  0,
   });
-  res.send("USER LOGOUT SUCCESSFULLY !");
+  res.send({ message: "USER LOGOUT SUCCESSFULLY !" });
 });
 
 module.exports = authRouter;

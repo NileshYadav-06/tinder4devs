@@ -24,10 +24,13 @@ const validateSignUpData = (req) => {
 
 const validateEditProfileData = (req) => {
  
-    const { photoUrl, age, skills, gender, about } = req.body;
-    if (photoUrl && !validator.isURL(photoUrl)) {
-      throw new Error("Photo Url link is invalid");
-    } else if (skills && skills.length > 10) {
+  const { photoUrl, age, skills, gender, about } = req.body;
+  
+  // Only validate if no  file was uploaded
+  //   if (!req.file && photoUrl && !validator.isURL(photoUrl)) {
+  //     throw new Error("Photo Url link is invalid");
+  // }
+   if (skills && skills.length > 10) {
       throw new Error("Skills can have a maximum of 10");
     } else if (about && about.length > 160) {
       throw new Error("About must be 160 characters or less ");

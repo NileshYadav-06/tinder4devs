@@ -1,13 +1,15 @@
 const express = require("express");
+const profileRouter = express.Router();
 const { userAuth } = require("../middlewares/auth");
 const validator = require("validator")
 const { validateEditProfileData } = require("../utils/validation");
 const bcrypt = require("bcrypt")
+const upload = require("../middlewares/multer");  // your multer config
 
-const profileRouter = express.Router();
+  
 
 
-// GET Profile
+// GET Profile 
 profileRouter.get("/profile/view", userAuth, async (req, res) => {
   try {
     const user = req.user; //i can get user from req.user bcoz i have attached user to req in userAuthmiddleware
@@ -20,14 +22,22 @@ profileRouter.get("/profile/view", userAuth, async (req, res) => {
     res.status(400).send("ERROR: " + err.message);
   }
 });
-// Update Profile
-profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
+// Update Profile Route for editing profile (with photo upload)
+profileRouter.patch("/profile/edit", userAuth, upload.single("photoUrl"), async (req, res) => {
   try {
-    validateEditProfileData(req);
-
     const LoggedInUser = req.user;
     console.log(LoggedInUser);
-    //Apply update
+     console.log("req.file",req.file);
+    // If user uploaded a photo, store path instead of  photoUrl from body
+    if (req.file) {
+   
+      LoggedInUser.photoUrl = req.file.path.replace(/\\/g, "/");
+  }
+
+    // validate other fields (exluding phtoUrl from body)
+    validateEditProfileData(req);
+
+    //Apply updates for non-file fields
     Object.keys(req.body).forEach((key) => {
       LoggedInUser[key] = req.body[key];
       // console.log(key, req.body[key]);
@@ -37,10 +47,18 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res) => {
     // Object.assign(LoggedInUser, req.body)      [Shortest and clear from above]
     await LoggedInUser.save();
 
-    res.json({
-      message: `${LoggedInUser.firstName}, your Profile data updated successfully`,
-      data: LoggedInUser,
-    });
+   res.json({
+     message: `${LoggedInUser.firstName}, your profile updated successfully`,
+     data: {
+       ...LoggedInUser.toObject(),
+       photoUrl: LoggedInUser.photoUrl
+         ? `${req.protocol}://${req.get("host")}/${LoggedInUser.photoUrl.replace(
+             /\\/g,
+             "/"
+           )}`
+         : null,
+     },
+   });
   } catch (err) {
     res.status(400).send("ERROR: " + err.message);
   }

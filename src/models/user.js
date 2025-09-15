@@ -58,11 +58,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default:
         "https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg",
-      validate(value) {
-        if (!validator.isURL(value)) {
-          throw new Error("Invalid Photo ULR: " + value);
-        }
-      },
+      // validate(value) {
+      //   if (!validator.isURL(value)) {
+      //     throw new Error("Invalid Photo ULR: " + value);
+      //   }
+      // },
     },
     about: {
       type: String,

@@ -18,12 +18,12 @@
 
  <!-- - POST /request/review/accepted/:requestId -->
  <!-- - POST /request/review/rejected/:requestId -->
-POST /request/send/:status/:requestId
+POST /request/review/:status/:requestId
 <!-- Handles its above routes -->
 
 ## userRouter
- - GET /user/connections
- - GET /user/request/ 
+ - GET /user/request/recieved    <!-- Get all the pending connection request-->
+ - GET /user/connections 
  - GET /user/feed - Gets you the profiles  of other on platform
 
 

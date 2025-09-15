@@ -116,3 +116,11 @@
 - ALWAYS THINK ABOUT CORNER CASES
 
 -Write code with proper validation for POST /request/review/:status/:requestId
+- Thought process - POST vs GET during creating API
+- Read about ref and populate 
+- Create logic for GET API /user/requests/recieved with all checks 
+- Create logic for GET API /user/connections 
+- Create logic for GET API GET API /user/feed 
+- Explore the $nin, $or, $and, $ne, $eq, And others query operators.
+- Pagginations = []
+
