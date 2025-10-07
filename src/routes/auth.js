@@ -61,7 +61,7 @@ authRouter.post("/login", async (req, res) => {
       // Add Token to cookies and send response back to the user
       res.cookie("token", token, { maxAge: 7 * 24 * 60 * 60 * 1000 });  // Token will expires in 7 days
       // we can use {expires: new Date(Date.now() + 7*24*60*60*1000)}  in place of maxAge
-      res.send("LOGIN SUCCESSFULL");
+      res.json({loginUser:user});
     } else {
       throw new Error("Invalid Credentials ");
     }
